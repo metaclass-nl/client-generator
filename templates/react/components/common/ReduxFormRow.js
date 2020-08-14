@@ -1,40 +1,45 @@
-import React from 'react';
+import React from "react";
 
 function ReduxFieldInput(data) {
-    return <input
-        {...data.input}
-        type={data.type}
-        step={data.step}
-        required={data.required}
-        placeholder={data.placeholder}
-        id={data.meta.form + '_' + data.input.name}
+  return (
+    <input
+      {...data.input}
+      type={data.type}
+      step={data.step}
+      required={data.required}
+      placeholder={data.placeholder}
+      id={data.meta.form + "_" + data.input.name}
     />
+  );
 }
 
-export default function ReduxFormRow(data)
-{
-    data.input.className = 'form-control';
+export default function ReduxFormRow(data) {
+  const Widget = data.widget ? data.widget : ReduxFieldInput;
+  const widgetData = { ...data };
+  widgetData.label = undefined;
 
-    const isInvalid = data.meta.touched && !!data.meta.error;
-    if (isInvalid) {
-        data.input.className += ' is-invalid';
-        data.input['aria-invalid'] = true;
-    }
+  data.input.className = "form-control";
 
-    if (data.apiError && data.meta.touched && !data.meta.error) {
-        data.input.className += ' is-valid';
-    }
+  const isInvalid = data.meta.touched && !!data.meta.error;
+  if (isInvalid) {
+    data.input.className += " is-invalid";
+    data.input["aria-invalid"] = true;
+  }
 
-    return (
-        <div className={`form-group`}>
-            <label
-                htmlFor={`${data.meta.form}_${data.input.name}`}
-                className="form-control-label"
-            >
-                {data.label===undefined ? data.input.name : data.label}
-            </label>
-            <ReduxFieldInput {...data}/>
-            {isInvalid && <div className="invalid-feedback">{data.meta.error}</div>}
-        </div>
-    );
-};
+  if (data.apiError && data.meta.touched && !data.meta.error) {
+    data.input.className += " is-valid";
+  }
+
+  return (
+    <div className={`form-group`}>
+      <label
+        htmlFor={`${data.meta.form}_${data.input.name}`}
+        className="form-control-label"
+      >
+        {data.label === undefined ? data.input.name : data.label}
+      </label>
+      <Widget {...widgetData} />
+      {isInvalid && <div className="invalid-feedback">{data.meta.error}</div>}
+    </div>
+  );
+}

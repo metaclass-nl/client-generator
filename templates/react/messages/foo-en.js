@@ -4,6 +4,7 @@ export default {
   "{{{../lc}}}.{{{name}}}.placeholder": "{{{description}}}",{{/if}}
 {{/each}}
 
+  "{{{lc}}}.item": "{{{title}}}",
   "{{{lc}}}.list": "{{{title}}} List",
   "{{{lc}}}.new": "New {{{title}}}",
   "{{{lc}}}.show": "Show {label}",

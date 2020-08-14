@@ -5,6 +5,9 @@ import * as inputLoc from '../../utils/inputLocalization';
 import {FormattedMessage} from 'react-intl';
 import ReduxFormRow from '../common/ReduxFormRow.js';
 import getIntl from "../../utils/intlProvider";
+{{#if hasRef1Field}}
+import SelectEntity from '../common/SelectEntity.js';
+{{/if}}
 
 class Form extends Component {
   static propTypes = {
@@ -23,19 +26,20 @@ class Form extends Component {
 {{#each formFields}}
         <Field
           component={this.renderField}
-          name="{{{name}}}"
-          type="{{#compare type "==" "dateTime" }}datetime-local{{else}}{{{type}}}{{/compare}}"
+          name="{{{name}}}"{{#unless maxCardinality}}
+          type="{{#compare type "==" "dateTime" }}datetime-local{{else}}{{{type}}}{{/compare}}"{{/unless}}
           label=<FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}" />{{#if step}}
           step="{{{step}}}"{{/if}}
           placeholder={{#if description}}{intl.formatMessage({id:"{{{../lc}}}.{{{name}}}.placeholder", defaultMessage:"{{{description}}}"}) }{{else}}""{{/if}}{{#if required}}
           required={true}{{/if}}{{#if reference}}{{#unless maxCardinality}}
-          normalize={v => (v === '' ? [] : v.split(','))}{{/unless}}
+          normalize={v => (v === '' ? [] : v.split(','))}{{else}}
+          widget={SelectEntity}
+          labelProp="{{{../labelField}}}"
+          fetchUrl="{{{reference.name}}}?pagination=false"{{/unless}}
           {{/if}}{{#if number}}
           format={inputLoc.formatNumber}
           normalize={inputLoc.normalizeNumber}
-          {{/if}}
-          {{#compare type "==" "date" }}
-
+          {{/if}}{{#compare type "==" "date" }}
           format={inputLoc.formatDate}
           normalize={inputLoc.normalizeDate}
           {{/compare}}{{#compare type "==" "time" }}

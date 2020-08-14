@@ -61,6 +61,7 @@ test("Generate a React app", () => {
     "/components/common/intlDefined.js",
     "/components/common/Pagination.js",
     "/components/common/ReduxFormRow.js",
+    "/components/common/SelectEntity.js",
 
     "/messages/abc-en.js",
     "/messages/common-en.js",

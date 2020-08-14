@@ -13,10 +13,23 @@ Works especially well with APIs built with the [API Platform](https://api-platfo
 ## Adapted version
 
 This branch holds an adapted version of React Generator
-based on the [Api Platform Tutorial chapter 3 react branch](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter3-react).
-It scaffolds an Internationalized and Localized application that uses [React Intl](https://formatjs.io/docs/react-intl/).
-In addition to the templates from the tutorial this generator also generates the 
-necessary common components, utils and message files.
+based on the [Api Platform Tutorial chapter 4 react branch](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter4-react).
+It scaffolds an Internationalized and Localized application that uses [React Intl](https://formatjs.io/docs/react-intl/)
+and shows entity names/labels instead of @ids and a Select widget for for a single reference.
+It also generates the necessary common components, utils and message files.
+
+Be aware that the code scaffolded by these templates needs data from
+the api to contain label properties to be typed as http://schema.org/name
+and labels of referred entities to be included (possible by serialization groups). 
+Because the generator only has access to the metadata of the single type for which it is scaffolding,
+it assumes all referred types label properties have the same name. If this assumption is wrong
+you need to correct the scaffolded code. See 
+[the tutorial chapter 4 api branche](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter4-api) 
+for an example on how to create the required annotations. 
+
+Finally, if your application needs the user to edit references to multiple
+entities, the scaffolded entryfield will only be usable if you show the @ids
+of the entities somewhere in the application, for example in the List component.
 
 See the readme of [the tutorial chapter 3 react branche](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter3-react) 
 for how to adapt your client/src/index.js 

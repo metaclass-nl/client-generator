@@ -43,7 +43,7 @@ class Show extends Component {
 
     return (
       <div>
-        <h1><FormattedMessage id="{{{lc}}}.show" defaultMessage="Show {label}" values={ {label: item && item['@id']} }/></h1>
+        <h1><FormattedMessage id="{{{lc}}}.show" defaultMessage="Show {label}" values={ {label: item && item['{{{labelField}}}']} }/></h1>
 
         {this.props.loading && (
           <div className="alert alert-info" role="status">
@@ -75,7 +75,7 @@ class Show extends Component {
 {{#each fields}}
               <tr>
                 <th scope="row"><FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}"/></th>
-                <td>{{#if reference}}<EntityLinks type="{{{reference.name}}}" items={item['{{{name}}}']} up={true} />{{else}}
+                <td>{{#if reference}}<EntityLinks type="{{{reference.name}}}" items={item['{{{name}}}']} labelProp="{{{../labelField}}}" up={true} />{{else}}
                     {{#compare range "==" "http://www.w3.org/2001/XMLSchema#date" }}
                     <defined.FormattedDate value={item['{{{name}}}']} />
                     {{/compare}}

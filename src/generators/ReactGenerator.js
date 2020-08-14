@@ -34,6 +34,7 @@ export default class extends BaseGenerator {
       "components/common/intlDefined.js",
       "components/common/Pagination.js",
       "components/common/ReduxFormRow.js",
+      "components/common/SelectEntity.js",
 
       // components
       "components/foo/Create.js",
@@ -101,6 +102,17 @@ combineReducers({ ${titleLc},/* ... */ }),
     const lc = resource.title.toLowerCase();
     const titleUcFirst =
       resource.title.charAt(0).toUpperCase() + resource.title.slice(1);
+    let labelField = "@id";
+    let hasRef1Field = false;
+    for (let i = 0; i < resource.readableFields.length; i++) {
+      let field = resource.readableFields[i];
+      if (field.id === "http://schema.org/name") {
+        labelField = field.name;
+      }
+      if (field.reference && field.maxCardinality === 1) {
+        hasRef1Field = true;
+      }
+    }
 
     const context = {
       title: resource.title,
@@ -110,7 +122,9 @@ combineReducers({ ${titleLc},/* ... */ }),
       fields: resource.readableFields,
       formFields: this.buildFields(resource.writableFields),
       hydraPrefix: this.hydraPrefix,
-      titleUcFirst
+      titleUcFirst,
+      labelField,
+      hasRef1Field
     };
 
     // Create directories
@@ -202,6 +216,12 @@ combineReducers({ ${titleLc},/* ... */ }),
     this.createFile(
       "components/common/ReduxFormRow.js",
       `${dir}/components/common/ReduxFormRow.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "components/common/SelectEntity.js",
+      `${dir}/components/common/SelectEntity.js`,
       context,
       false
     );

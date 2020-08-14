@@ -64,7 +64,7 @@ class List extends Component {
         <table className="table table-responsive table-striped table-hover">
           <thead>
             <tr>
-              <th>id</th>
+              <th><FormattedMessage id="{{{lc}}}.item" default="{{{title}}}"/></th>
 {{#each fields}}
               <th><FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}"/></th>
 {{/each}}
@@ -77,11 +77,11 @@ class List extends Component {
                 <tr key={item['@id']}>
                   <th scope="row">
                     <Link to={`show/${encodeURIComponent(item['@id'])}`}>
-                      {item['@id']}
+                      {item['{{{labelField}}}']}
                     </Link>
                   </th>
 {{#each fields}}
-                  <td>{{#if reference}}<EntityLinks type="{{{reference.name}}}" items={item['{{{name}}}']} />{{else}}
+                  <td>{{#if reference}}<EntityLinks type="{{{reference.name}}}" items={item['{{{name}}}']} labelProp="{{{../labelField}}}" />{{else}}
                   {{#compare range "==" "http://www.w3.org/2001/XMLSchema#date" }}
                   <defined.FormattedDate value={item['{{{name}}}']} />
                   {{/compare}}
