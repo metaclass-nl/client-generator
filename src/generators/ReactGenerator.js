@@ -1,5 +1,8 @@
 import chalk from "chalk";
 import BaseGenerator from "./BaseGenerator";
+import handlebars from "handlebars";
+import hbh_comparison from "handlebars-helpers/lib/comparison";
+import hbh_string from "handlebars-helpers/lib/string";
 
 export default class extends BaseGenerator {
   constructor(params) {
@@ -26,6 +29,12 @@ export default class extends BaseGenerator {
     ]);
 
     this.registerTemplates(`react/`, [
+      // common components
+      "components/common/EntityLinks.js",
+      "components/common/intlDefined.js",
+      "components/common/Pagination.js",
+      "components/common/ReduxFormRow.js",
+
       // components
       "components/foo/Create.js",
       "components/foo/Form.js",
@@ -35,8 +44,20 @@ export default class extends BaseGenerator {
       "components/foo/Show.js",
 
       // routes
-      "routes/foo.js"
+      "routes/foo.js",
+
+      //utils
+      "utils/inputLocalization.js",
+      "utils/intlProvider.js",
+
+      // messages
+      "messages/foo-en.js",
+      "messages/common-en.js",
+      "messages/all.js"
     ]);
+
+    handlebars.registerHelper("compare", hbh_comparison.compare);
+    handlebars.registerHelper("capitalize", hbh_string.capitalize);
   }
 
   help(resource) {
@@ -64,6 +85,16 @@ combineReducers({ ${titleLc},/* ... */ }),
 { ${titleLc}Routes }
 `)
     );
+
+    console.log("and paste the following in your application messages import (`client/src/messages/all.js`");
+    console.log(
+      chalk.green(`
+      import ${titleLc}_en from './${titleLc}-en';
+
+      // Add messages to all
+      en: {...common_en, ...${titleLc}_en, /* ... */ },
+`)
+    );
   }
 
   generate(api, resource, dir) {
@@ -84,9 +115,13 @@ combineReducers({ ${titleLc},/* ... */ }),
 
     // Create directories
     // These directories may already exist
-    [`${dir}/utils`, `${dir}/config`, `${dir}/routes`].forEach(dir =>
-      this.createDir(dir, false)
-    );
+    [
+      `${dir}/utils`,
+      `${dir}/config`,
+      `${dir}/routes`,
+      `${dir}/components/common`,
+      `${dir}/messages`
+    ].forEach(dir => this.createDir(dir, false));
 
     [
       `${dir}/actions/${lc}`,
@@ -119,13 +154,68 @@ combineReducers({ ${titleLc},/* ... */ }),
       "reducers/%s/show.js",
 
       // routes
-      "routes/%s.js"
+      "routes/%s.js",
+
+      // messages
+      "messages/%s-en.js"
     ].forEach(pattern => this.createFileFromPattern(pattern, dir, lc, context));
 
     // utils
     this.createFile(
       "utils/dataAccess.js",
       `${dir}/utils/dataAccess.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "utils/inputLocalization.js",
+      `${dir}/utils/inputLocalization.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "utils/intlProvider.js",
+      `${dir}/utils/intlProvider.js`,
+      context,
+      false
+    );
+
+    // common components
+    this.createFile(
+      "components/common/EntityLinks.js",
+      `${dir}/components/common/EntityLinks.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "components/common/intlDefined.js",
+      `${dir}/components/common/intlDefined.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "components/common/Pagination.js",
+      `${dir}/components/common/Pagination.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "components/common/ReduxFormRow.js",
+      `${dir}/components/common/ReduxFormRow.js`,
+      context,
+      false
+    );
+
+    // common messages
+    this.createFile(
+      "messages/common-en.js",
+      `${dir}/messages/common-en.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "messages/all.js",
+      `${dir}/messages/all.js`,
       context,
       false
     );

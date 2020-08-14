@@ -12,49 +12,15 @@ Works especially well with APIs built with the [API Platform](https://api-platfo
 
 ## Adapted version
 
-This fork includes branches with adapted versions of React Generator
-based on the [Api Platform Tutorial](https://github.com/metaclass-nl/api-platform-tutorial).
-that can be used to scaffold more user friendly Internationalized and Localized React applications.
-The following branches are available:
-- [tutorial-chapter3](https://github.com/metaclass-nl/client-generator/tree/tutorial-chapter3) 
-  with Internationalization and Localization (uses React Intl)
-- [tutorial-chapter4](https://github.com/metaclass-nl/client-generator/tree/tutorial-chapter4) 
-  with the above and showing entity labels/names instead of @ids (requires corresponding serialization group annotations on the api)
-- [tutorial-chapter6](https://github.com/metaclass-nl/client-generator/tree/tutorial-chapter6) 
-  with the above and Searching and Sorting (requires manual adaptation, the above and corresponding filter annotations on the api)
+This branch holds an adapted version of React Generator
+based on the [Api Platform Tutorial chapter 3 react branch](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter3-react).
+It scaffolds an Internationalized and Localized application that uses [React Intl](https://formatjs.io/docs/react-intl/).
+In addition to the templates from the tutorial this generator also generates the 
+necessary common components, utils and message files.
 
-There is no branche for chapter 7 (Authorization, JWT) because it only requires 2 components
-and no scaffolding, you can follow the instructions of the 
-[chapter7-react branch](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter8-react) of the tutorial. 
-
-To use one of them first read the instructions in the readme of 
-the branch (follow its link to github). Then follow the instructions on installing an 
-[api platform distribution](https://api-platform.com/docs/distribution/#installing-the-framework) or 
-[react client](https://api-platform.com/docs/client-generator/react/#install) 
-and find the client src folder.
-
-Then clone the repository somewhere where you can run npm or yarn:
-```shell
-git clone https://github.com/metaclass-nl/client-generator.git
-```
-Check out the branch (replace with the branch of your choice):
-```shell 
-git checkout tutorial-chapter6
-```
-With npm you can and build it like:
-```shell 
-npm run build
-```
-With npm you can run the actual scaffolding with:
-```shell
-./lib/index.js https://localhost:8443 <path to client src folder> 
-```
-You may have to make lib/index.js executable in the file system.
-With yarn you need somewhat different commands.
-
-Before you can run the scaffolded code you still need to 
-Register the reducers and the routes in the client/src/index.js,
-see [Generating](https://api-platform.com/docs/client-generator/react/#generating-a-progressive-web-app).
+See the readme of [the tutorial chapter 3 react branche](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter3-react) 
+for how to adapt your client/src/index.js 
+for React Intl and an example of how to adapt client/src/messages/all.js. 
 
 ## Documentation
 
