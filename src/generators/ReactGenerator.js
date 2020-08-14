@@ -35,6 +35,9 @@ export default class extends BaseGenerator {
       "components/common/Pagination.js",
       "components/common/ReduxFormRow.js",
       "components/common/SelectEntity.js",
+      "components/common/ListTool.js",
+      "components/common/ThSort.js",
+      "components/common/SelectThreeState.js",
 
       // components
       "components/foo/Create.js",
@@ -43,6 +46,8 @@ export default class extends BaseGenerator {
       "components/foo/List.js",
       "components/foo/Update.js",
       "components/foo/Show.js",
+      "components/foo/SearchTool.js",
+      "components/foo/SearchForm.js",
 
       // routes
       "routes/foo.js",
@@ -54,7 +59,10 @@ export default class extends BaseGenerator {
       // messages
       "messages/foo-en.js",
       "messages/common-en.js",
-      "messages/all.js"
+      "messages/all.js",
+
+      // other
+      "main.css"
     ]);
 
     handlebars.registerHelper("compare", hbh_comparison.compare);
@@ -104,6 +112,7 @@ combineReducers({ ${titleLc},/* ... */ }),
       resource.title.charAt(0).toUpperCase() + resource.title.slice(1);
     let labelField = "@id";
     let hasRef1Field = false;
+    let hasBoolField = false;
     for (let i = 0; i < resource.readableFields.length; i++) {
       let field = resource.readableFields[i];
       if (field.id === "http://schema.org/name") {
@@ -111,6 +120,9 @@ combineReducers({ ${titleLc},/* ... */ }),
       }
       if (field.reference && field.maxCardinality === 1) {
         hasRef1Field = true;
+      }
+      if (field.range === "http://www.w3.org/2001/XMLSchema#boolean") {
+        hasBoolField = true;
       }
     }
 
@@ -124,7 +136,8 @@ combineReducers({ ${titleLc},/* ... */ }),
       hydraPrefix: this.hydraPrefix,
       titleUcFirst,
       labelField,
-      hasRef1Field
+      hasRef1Field,
+      hasBoolField
     };
 
     // Create directories
@@ -158,6 +171,8 @@ combineReducers({ ${titleLc},/* ... */ }),
       "components/%s/List.js",
       "components/%s/Update.js",
       "components/%s/Show.js",
+      "components/%s/SearchTool.js",
+      "components/%s/SearchForm.js",
 
       // reducers
       "reducers/%s/create.js",
@@ -225,6 +240,24 @@ combineReducers({ ${titleLc},/* ... */ }),
       context,
       false
     );
+    this.createFile(
+      "components/common/ListTool.js",
+      `${dir}/components/common/ListTool.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "components/common/ThSort.js",
+      `${dir}/components/common/ThSort.js`,
+      context,
+      false
+    );
+    this.createFile(
+      "components/common/SelectThreeState.js",
+      `${dir}/components/common/SelectThreeState.js`,
+      context,
+      false
+    );
 
     // common messages
     this.createFile(
@@ -236,6 +269,14 @@ combineReducers({ ${titleLc},/* ... */ }),
     this.createFile(
       "messages/all.js",
       `${dir}/messages/all.js`,
+      context,
+      false
+    );
+
+    // other
+    this.createFile(
+      "main.css",
+      `${dir}/main.css`,
       context,
       false
     );

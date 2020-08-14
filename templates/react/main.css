@@ -1,0 +1,62 @@
+/* styles common for the entire app */
+
+.bg-lightGrey {
+    background: #f2f2f2;
+}
+@media (min-width: 768px) {
+    .mainContainer {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+@media (min-width: 668px) {
+    .form-control-label, .form-control {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .form-control-label {
+        width: 30%;
+    }
+
+    .form-control {
+        width: 70%;
+    }
+}
+
+.search .btn-success {
+    display: none;
+}
+.search .form-group {
+    display: inline-block;
+    width: 180px;
+    vertical-align: top;
+}
+.search .form-control {
+    display: block;
+    width: 98%;
+}
+.search .form-control-label {
+    width: 98%;
+    display: block;
+}
+.search, .toolbar-buttons {
+    display: table-cell;
+    vertical-align: bottom;
+}
+.toolbar-buttons {
+    padding-left: 5px;
+    padding-bottom: 1rem;
+}
+
+th .fa-sort-down, th .fa {
+    padding-left: 5px;
+}
+th.sort:hover {
+    cursor: pointer;
+}
+th.sort span {
+    display: table-cell;
+}
