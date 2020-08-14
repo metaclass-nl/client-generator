@@ -13,7 +13,7 @@ Works especially well with APIs built with the [API Platform](https://api-platfo
 ## Adapted version
 
 This fork includes branches with adapted versions of React Generator
-based on the [Api Platform Tutorial](https://github.com/metaclass-nl/api-platform-tutorial).
+based on the [Tutorial for API Platform](https://github.com/metaclass-nl/api-platform-tutorial).
 that can be used to scaffold more user friendly Internationalized and Localized React applications.
 The following branches are available:
 - [tutorial-chapter3](https://github.com/metaclass-nl/client-generator/tree/tutorial-chapter3) 
