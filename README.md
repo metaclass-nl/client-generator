@@ -13,7 +13,7 @@ Works especially well with APIs built with the [API Platform](https://api-platfo
 ## Adapted version
 
 This fork includes branches with adapted versions of React Generator
-based on the [Tutorial for API Platform](https://github.com/metaclass-nl/api-platform-tutorial).
+based on the [Tutorial API Platform](https://github.com/metaclass-nl/tutorial-api-platform).
 that can be used to scaffold more user friendly Internationalized and Localized React applications.
 The following branches are available:
 - [tutorial-chapter3](https://github.com/metaclass-nl/client-generator/tree/tutorial-chapter3) 
@@ -25,7 +25,7 @@ The following branches are available:
 
 There is no branche for chapter 7 (Authorization, JWT) because it only requires 2 components
 and no scaffolding, you can follow the instructions of the 
-[chapter7-react branch](https://github.com/metaclass-nl/api-platform-tutorial/tree/chapter8-react) of the tutorial. 
+[chapter7-react branch](https://github.com/metaclass-nl/tutorial-api-platform/tree/chapter8-react) of the tutorial. 
 
 To use one of them first read the instructions in the readme of 
 the branch (follow its link to github). Then follow the instructions on installing an 
