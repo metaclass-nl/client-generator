@@ -60,29 +60,6 @@ see [Generating](https://api-platform.com/docs/client-generator/react/#generatin
 
 The documentation of API Platform's Client Generator can be browsed [on the official website](https://api-platform.com/docs/client-generator).
 
-## Usage
-
-**Hydra**
-```sh
-npx @api-platform/client-generator https://demo.api-platform.com/ output/ --resource Book
-```
-
-**OpenAPI v2 (formerly known as Swagger)** (experimental)
-```sh
-npx @api-platform/client-generator https://demo.api-platform.com/docs.json output/ --resource Book --format swagger
-```
-
-or
-
-```sh
-npx @api-platform/client-generator https://demo.api-platform.com/docs.json output/ --resource Book --format openapi2
-```
-
-**OpenAPI v3** (experimental)
-```sh
-npx @api-platform/client-generator https://demo.api-platform.com/docs.json?spec_version=3 output/ --resource Book --format openapi3
-```
-
 ## Features
 
 * Generate high-quality ES6 components and files built with [React](https://facebook.github.io/react/), [Redux](http://redux.js.org), [React Router](https://reacttraining.com/react-router/) and [Redux Form](http://redux-form.com/) including:
@@ -102,3 +79,5 @@ npx @api-platform/client-generator https://demo.api-platform.com/docs.json?spec_
 
 Created by [Kévin Dunglas](https://dunglas.fr). Sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
 Commercial support available upon request.
+
+Modifications and extensions in additional branches are Copyright (c) [MetaClass](https://www.metaclass.nl/), Groningen, 2020
