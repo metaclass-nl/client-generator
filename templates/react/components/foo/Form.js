@@ -25,7 +25,7 @@ class Form extends Component {
           component={this.renderField}
           name="{{{name}}}"
           type="{{#compare type "==" "dateTime" }}datetime-local{{else}}{{{type}}}{{/compare}}"
-          label=<FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}" />{{#if step}}
+          label={<FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}" />}{{#if step}}
           step="{{{step}}}"{{/if}}
           placeholder={{#if description}}{intl.formatMessage({id:"{{{../lc}}}.{{{name}}}.placeholder", defaultMessage:"{{{description}}}"}) }{{else}}""{{/if}}{{#if required}}
           required={true}{{/if}}{{#if reference}}{{#unless maxCardinality}}
