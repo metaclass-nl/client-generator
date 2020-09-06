@@ -55,10 +55,10 @@ export function normalizeTime(v) {
  * @param v string to be formatted
  * @returns string formatted as a proper value for the input
  */
-export function  formatDateTime(v) {
+export function formatDateTime(v) {
     if (!v) return undefined;
     const dt = new Date(v);
-    return dt.getFullYear()+ '-' + ('0' + (dt.getMonth()+1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2) + 'T' + dt.toLocaleTimeString('en-GB')
+    return dt.getFullYear()+ '-' + ('0' + (dt.getMonth()+1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2) + 'T' + dt.toLocaleTimeString('en-GB');
 }
 
 /**
@@ -67,12 +67,12 @@ export function  formatDateTime(v) {
  * @returns string normalized as a proper value for api platform
  */
 export function normalizeDateTime(v) {
-    if (!v) return null;
+    if (!v || v.length < 16) return null;
     return new Date(
         parseInt(v.substring(0, 4), 10), parseInt(v.substring(5, 7), 10) - 1,
         parseInt(v.substring(8, 10), 10), parseInt(v.substring(11, 13), 10),
         parseInt(v.substring(14, 16), 10), 0
-    ).toISOString()
+    ).toISOString();
 }
 
 /**

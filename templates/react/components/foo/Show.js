@@ -19,7 +19,8 @@ class Show extends Component {
     deleteError: PropTypes.string,
     deleteLoading: PropTypes.bool.isRequired,
     deleted: PropTypes.object,
-    del: PropTypes.func.isRequired
+    del: PropTypes.func.isRequired,
+    listQuery: PropTypes.string
   };
 
   componentDidMount() {
@@ -37,7 +38,8 @@ class Show extends Component {
   };
 
   render() {
-    if (this.props.deleted) return <Redirect to=".." />;
+    const listUri = "../" + (this.props.listQuery ? this.props.listQuery : "");
+    if (this.props.deleted) return <Redirect to={listUri} />;
 
     const item = this.props.retrieved;
 
@@ -106,7 +108,7 @@ class Show extends Component {
             </tbody>
           </table>
         )}
-        <Link to=".." className="btn btn-primary">
+        <Link to={listUri} className="btn btn-primary">
           <FormattedMessage id="backToList" defaultMessage="Back to list" />
         </Link>
         {item && (
@@ -130,7 +132,8 @@ const mapStateToProps = state => ({
   eventSource: state.{{{lc}}}.show.eventSource,
   deleteError: state.{{{lc}}}.del.error,
   deleteLoading: state.{{{lc}}}.del.loading,
-  deleted: state.{{{lc}}}.del.deleted
+  deleted: state.{{{lc}}}.del.deleted,
+  listQuery: state.{{{lc}}}.list.query
 });
 
 const mapDispatchToProps = dispatch => ({

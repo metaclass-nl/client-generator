@@ -37,7 +37,7 @@ class SearchForm extends Component {
           name="{{{name}}}{{#if reference}}.id{{/if}}"{{#compare type "==" "checkbox" }}
           widget={SelectThreeState}{{else}}{{#unless maxCardinality}}
           type="{{#compare type "==" "dateTime" }}datetime-local{{else}}{{{type}}}{{/compare}}"{{/unless}}{{/compare}}
-          label=<FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}" />{{#if step}}
+          label={<FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}" />}{{#if step}}
           step="{{{step}}}"{{/if}}
           placeholder={{#if description}}{intl.formatMessage({id:"{{{../lc}}}.{{{name}}}.placeholder", defaultMessage:"{{{description}}}"}) }{{else}}""{{/if}}{{#if reference}}{{#unless maxCardinality}}
           normalize={v => (v === '' ? [] : v.split(','))}{{else}}

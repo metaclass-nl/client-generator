@@ -18,6 +18,10 @@ export function success(retrieved) {
   return { type: '{{{uc}}}_LIST_SUCCESS', retrieved };
 }
 
+export function query(query) {
+  return { type: '{{{uc}}}_LIST_QUERY', query };
+}
+
 export function list(page = '{{{name}}}') {
   return dispatch => {
     dispatch(loading(true));
