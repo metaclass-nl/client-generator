@@ -59,6 +59,8 @@ see [Generating](https://api-platform.com/docs/client-generator/react/#generatin
 ## Documentation
 
 The documentation of API Platform's Client Generator can be browsed [on the official website](https://api-platform.com/docs/client-generator).
+The extensions are documented in detail in the readmes of the corresponding
+react branches of [Tutorial API Platform](https://github.com/metaclass-nl/tutorial-api-platform). 
 
 ## Features
 
