@@ -83,7 +83,7 @@ class List extends Component {
           />
           <div className="toolbar-buttons form-group">
             <Link to="create" className="btn btn-primary">
-              <FormattedMessage id="employee.create" defaultMessage="Create"/>
+              <FormattedMessage id="{{{lc}}}.create" defaultMessage="Create"/>
             </Link>
           </div>
         </div>
