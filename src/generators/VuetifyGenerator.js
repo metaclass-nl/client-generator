@@ -29,7 +29,7 @@ export default class extends BaseVueGenerator {
       "views/foo/Create.vue",
       "views/foo/List.vue",
       "views/foo/Show.vue",
-      "views/foo/Update.vue"
+      "views/foo/Update.vue",
     ]);
   }
 
@@ -52,14 +52,14 @@ import ${titleLc}Routes from './${titleLc}';
 export default new VueRouter({
   // ...
   routes: [
-      ...${titleLc}Routes,
+      ${titleLc}Routes,
   ]
 });
 
 // Register the modules in the store
 // src/store/index.js
 import ${titleLc}Service from '../services/${titleLc}';
-import makeCrudModule from './store/modules/crud';
+import makeCrudModule from './modules/crud';
 
 export const store = new Vuex.Store({
   // ...
@@ -104,8 +104,10 @@ export const store = new Vuex.Store({
       "views/%s/Create.vue",
       "views/%s/List.vue",
       "views/%s/Show.vue",
-      "views/%s/Update.vue"
-    ].forEach(pattern => this.createFileFromPattern(pattern, dir, lc, context));
+      "views/%s/Update.vue",
+    ].forEach((pattern) =>
+      this.createFileFromPattern(pattern, dir, lc, context)
+    );
 
     // components
     [
@@ -116,8 +118,8 @@ export const store = new Vuex.Store({
       "InputDate.vue",
       "Loading.vue",
       "Snackbar.vue",
-      "Toolbar.vue"
-    ].forEach(file =>
+      "Toolbar.vue",
+    ].forEach((file) =>
       this.createFile(
         `components/${file}`,
         `${dir}/components/${file}`,

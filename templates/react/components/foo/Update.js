@@ -26,38 +26,44 @@ class Update extends Component {
     listQuery: PropTypes.string
   };
 
+  deleting = false;
+
   componentDidMount() {
     this.props.retrieve(decodeURIComponent(this.props.match.params.id));
   }
 
   componentWillUnmount() {
+    this.deleting = false;
     this.props.reset(this.props.eventSource);
   }
 
   del = () => {
     const {intl} = this.props;
-    if (window.confirm(intl.formatMessage({id:"{{{lc}}}.delete.confirm", defaultMessage:"Are you sure you want to delete this item?"})))
+    if (window.confirm(intl.formatMessage({id:"{{{lc}}}.delete.confirm", defaultMessage:"Are you sure you want to delete this item?"}))) {
+      this.deleting = true;
       this.props.del(this.props.retrieved);
+    }
   };
 
   render() {
     const listUri = "../" + (this.props.listQuery ? this.props.listQuery : "");
-    if (this.props.deleted) return <Redirect to={listUri} />;
+    // It happened that this.props.deleted was still set when user was returning after redirect
+    if (this.deleting && this.props.deleted) return <Redirect to={listUri} />;
 
     const item = this.props.updated ? this.props.updated : this.props.retrieved;
 
     return (
       <div>
-        <h1><FormattedMessage id="{{{lc}}}.update" defaultMessage="Edit {label}" values={ {label: item && item['@id']} }/></h1>
+        <h1><FormattedMessage id="{{{lc}}}.update" defaultMessage="Edit {label}" values={ {label: item && item['{{{labelField}}}']} }/></h1>
 
         {this.props.created && (
           <div className="alert alert-success" role="status">
-            <FormattedMessage id="{{{lc}}}.created" defaultMessage="{label} created." values={ {label: this.props.created['@id']} } />
+            <FormattedMessage id="{{{lc}}}.created" defaultMessage="{label} created." values={ {label: this.props.created['{{{labelField}}}']} } />
           </div>
         )}
         {this.props.updated && (
           <div className="alert alert-success" role="status">
-            <FormattedMessage id="{{{lc}}}.updated" defaultMessage="{label} updated." values={ {label: this.props.updated['@id']} } />
+            <FormattedMessage id="{{{lc}}}.updated" defaultMessage="{label} updated." values={ {label: this.props.updated['{{{labelField}}}']} } />
           </div>
         )}
         {(this.props.retrieveLoading ||

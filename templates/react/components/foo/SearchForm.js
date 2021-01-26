@@ -68,7 +68,7 @@ class SearchForm extends Component {
 }
 
 export default reduxForm({
-  form: '{{{lc}}}',
+  form: '{{{lc}}}_search',
   enableReinitialize: true,
   keepDirtyOnReinitialize: true
 })(SearchForm);

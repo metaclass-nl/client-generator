@@ -10,22 +10,24 @@ export default class NextGenerator extends BaseGenerator {
       // components
       "components/common/ReferenceLinks.tsx",
       "components/foo/List.tsx",
-      "components/foo/ListItem.tsx",
       "components/foo/Show.tsx",
+      "components/foo/Form.tsx",
 
       // interfaces
       "error/SubmissionError.ts",
 
-      // interfaces
-      "interfaces/Collection.ts",
-      "interfaces/foo.ts",
+      // types
+      "types/Collection.ts",
+      "types/foo.ts",
 
       // pages
-      "pages/foos/[id].tsx",
+      "pages/foos/[id]/index.tsx",
+      "pages/foos/[id]/edit.tsx",
       "pages/foos/index.tsx",
+      "pages/foos/create.tsx",
 
       // utils
-      "utils/dataAccess.ts"
+      "utils/dataAccess.ts",
     ]);
   }
 
@@ -50,7 +52,7 @@ export default class NextGenerator extends BaseGenerator {
       formFields: this.buildFields(fields),
       imports,
       hydraPrefix: this.hydraPrefix,
-      title: resource.title
+      title: resource.title,
     };
 
     // Create directories
@@ -59,33 +61,31 @@ export default class NextGenerator extends BaseGenerator {
       `${dir}/components/common`,
       `${dir}/config`,
       `${dir}/error`,
-      `${dir}/interfaces`,
-      `${dir}/pages`,
-      `${dir}/utils`
-    ].forEach(dir => this.createDir(dir, false));
+      `${dir}/types`,
+      `${dir}/utils`,
+    ].forEach((dir) => this.createDir(dir, false));
 
-    // copy with patterned name
+    // Copy with patterned name
     this.createDir(`${dir}/components/${context.lc}`);
     this.createDir(`${dir}/pages/${context.lc}s`);
+    this.createDir(`${dir}/pages/${context.lc}s/[id]`);
     [
       // components
       "components/%s/List.tsx",
-      "components/%s/ListItem.tsx",
       "components/%s/Show.tsx",
+      "components/%s/Form.tsx",
 
       // pages
-      "pages/%ss/[id].tsx",
-      "pages/%ss/index.tsx"
-    ].forEach(pattern =>
+      "pages/%ss/[id]/index.tsx",
+      "pages/%ss/[id]/edit.tsx",
+      "pages/%ss/index.tsx",
+      "pages/%ss/create.tsx",
+    ].forEach((pattern) =>
       this.createFileFromPattern(pattern, dir, context.lc, context)
     );
 
     // interface pattern should be camel cased
-    this.createFile(
-      "interfaces/foo.ts",
-      `${dir}/interfaces/${context.ucf}.ts`,
-      context
-    );
+    this.createFile("types/foo.ts", `${dir}/types/${context.ucf}.ts`, context);
 
     // copy with regular name
     [
@@ -95,12 +95,14 @@ export default class NextGenerator extends BaseGenerator {
       // error
       "error/SubmissionError.ts",
 
-      // interfaces
-      "interfaces/Collection.ts",
+      // types
+      "types/Collection.ts",
 
       // utils
-      "utils/dataAccess.ts"
-    ].forEach(file => this.createFile(file, `${dir}/${file}`, context, false));
+      "utils/dataAccess.ts",
+    ].forEach((file) =>
+      this.createFile(file, `${dir}/${file}`, context, false)
+    );
 
     // API config
     this.createEntrypoint(api.entrypoint, `${dir}/config/entrypoint.ts`);
@@ -113,7 +115,7 @@ export default class NextGenerator extends BaseGenerator {
   parseFields(resource) {
     const fields = [
       ...resource.writableFields,
-      ...resource.readableFields
+      ...resource.readableFields,
     ].reduce((list, field) => {
       if (list[field.name]) {
         return list;
@@ -127,8 +129,8 @@ export default class NextGenerator extends BaseGenerator {
           type: this.getType(field),
           description: this.getDescription(field),
           readonly: false,
-          reference: field.reference
-        }
+          reference: field.reference,
+        },
       };
     }, {});
 
@@ -144,8 +146,8 @@ export default class NextGenerator extends BaseGenerator {
           ...list,
           [type]: {
             type,
-            file: `./${type}`
-          }
+            file: `./${type}`,
+          },
         };
       },
       {}

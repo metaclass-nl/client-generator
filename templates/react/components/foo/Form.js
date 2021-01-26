@@ -22,7 +22,7 @@ class Form extends Component {
   render() {
     const intl = getIntl();
     return (
-      <form onSubmit={this.props.handleSubmit}>
+      <form onSubmit={this.props.handleSubmit} className="edit">
 {{#each formFields}}
         <Field
           component={this.renderField}
@@ -35,7 +35,8 @@ class Form extends Component {
           normalize={v => (v === '' ? [] : v.split(','))}{{else}}
           widget={SelectEntity}
           labelProp="{{{../labelField}}}"
-          fetchUrl="{{{reference.name}}}?pagination=false"{{/unless}}
+          fetchUrl="{{{reference.name}}}?pagination=false"
+          normalize={ v => v ? v : null }{{/unless}}
           {{/if}}{{#if number}}
           format={inputLoc.formatNumber}
           normalize={inputLoc.normalizeNumber}

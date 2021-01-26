@@ -42,8 +42,7 @@ class SearchTool extends ListTool {
       req.{{{name}}} = { after: this.values.{{{name}}}, before: this.values.{{{name}}} };
     }{{/compare}}{{#compare type "==" "text" }}{{#if maxCardinality}}
     if (get(this.values, "{{{name}}}.id")) {
-      // need to strip /{{{name}}}/
-      req.{{{name}}} = this.values.{{{name}}}.id.substring("{{{name}}}".length + 3);
+      req.{{{name}}} = this.constructor.idFromIri(this.values.{{{name}}}.id);
     }{{else}}{{#unless reference}}
     req.{{{name}}} = this.values.{{{name}}};{{/unless}}{{/if}}{{/compare}}{{#compare type "==" "email" }}
     req.{{{name}}} = this.values.{{{name}}};{{/compare}}{{#compare type "==" "url" }}
@@ -116,7 +115,7 @@ class SearchTool extends ListTool {
       <SearchForm
         onSubmit={values => this.formSubmit(values)}
         onChange={values => this.formChange(values)}
-        initialValues={this.values}
+        initialValues={ {...this.values, order: undefined, page: undefined} }
         className="search"
       />
     );

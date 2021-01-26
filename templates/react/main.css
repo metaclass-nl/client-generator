@@ -60,3 +60,6 @@ th.sort:hover {
 th.sort span {
     display: table-cell;
 }
+form.edit {
+    display: inline;
+}

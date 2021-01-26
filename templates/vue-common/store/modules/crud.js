@@ -64,7 +64,7 @@ export default function makeCrudModule({
         commit(ACTIONS.SET_ERROR, '');
         commit(ACTIONS.TOGGLE_LOADING);
 
-        service
+        return service
           .create(values)
           .then(response => response.json())
           .then(data => {
@@ -77,7 +77,7 @@ export default function makeCrudModule({
       del: ({ commit }, item) => {
         commit(ACTIONS.TOGGLE_LOADING);
 
-        service
+        return service
           .del(item)
           .then(() => {
             commit(ACTIONS.TOGGLE_LOADING);
@@ -90,7 +90,7 @@ export default function makeCrudModule({
 
         commit(ACTIONS.TOGGLE_LOADING);
 
-        service
+        return service
           .findAll({ params })
           .then(response => response.json())
           .then(retrieved => {
@@ -120,7 +120,7 @@ export default function makeCrudModule({
 
         if (!service) throw new Error('No service specified!');
 
-        service
+        return service
           .findAll({ params })
           .then(response => response.json())
           .then(retrieved => {
@@ -135,7 +135,7 @@ export default function makeCrudModule({
         if (!service) throw new Error('No service specified!');
 
         commit(ACTIONS.TOGGLE_LOADING);
-        service
+        return service
           .find(id)
           .then(response => response.json())
           .then(item => {
@@ -160,7 +160,7 @@ export default function makeCrudModule({
         commit(ACTIONS.SET_ERROR, '');
         commit(ACTIONS.TOGGLE_LOADING);
 
-        service
+        return service
           .update(item)
           .then(response => response.json())
           .then(data => {

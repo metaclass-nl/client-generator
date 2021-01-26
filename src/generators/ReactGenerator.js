@@ -25,7 +25,7 @@ export default class extends BaseGenerator {
       "reducers/foo/index.js",
       "reducers/foo/list.js",
       "reducers/foo/update.js",
-      "reducers/foo/show.js"
+      "reducers/foo/show.js",
     ]);
 
     this.registerTemplates(`react/`, [
@@ -62,7 +62,7 @@ export default class extends BaseGenerator {
       "messages/all.js",
 
       // other
-      "main.css"
+      "main.css",
     ]);
 
     handlebars.registerHelper("compare", hbh_comparison.compare);
@@ -137,7 +137,7 @@ combineReducers({ ${titleLc},/* ... */ }),
       titleUcFirst,
       labelField,
       hasRef1Field,
-      hasBoolField
+      hasBoolField,
     };
 
     // Create directories
@@ -148,13 +148,15 @@ combineReducers({ ${titleLc},/* ... */ }),
       `${dir}/routes`,
       `${dir}/components/common`,
       `${dir}/messages`
-    ].forEach(dir => this.createDir(dir, false));
+    ].forEach((dir) =>
+      this.createDir(dir, false)
+    );
 
     [
       `${dir}/actions/${lc}`,
       `${dir}/components/${lc}`,
-      `${dir}/reducers/${lc}`
-    ].forEach(dir => this.createDir(dir));
+      `${dir}/reducers/${lc}`,
+    ].forEach((dir) => this.createDir(dir));
 
     [
       // actions
@@ -187,7 +189,9 @@ combineReducers({ ${titleLc},/* ... */ }),
 
       // messages
       "messages/%s-en.js"
-    ].forEach(pattern => this.createFileFromPattern(pattern, dir, lc, context));
+    ].forEach((pattern) =>
+      this.createFileFromPattern(pattern, dir, lc, context)
+    );
 
     // utils
     this.createFile(

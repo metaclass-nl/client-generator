@@ -1,6 +1,7 @@
-import { FunctionComponent } from 'react';
-import { ListItem } from './ListItem';
-import { {{{ucf}}} } from '../../interfaces/{{{ucf}}}';
+import { FunctionComponent } from "react";
+import Link from "next/link";
+import ReferenceLinks from "../../components/common/ReferenceLinks";
+import { {{{ucf}}} } from '../../types/{{{ucf}}}';
 
 interface Props {
   {{{name}}}: {{{ucf}}}[];
@@ -9,6 +10,9 @@ interface Props {
 export const List: FunctionComponent<Props> = ({ {{{name}}} }) => (
   <div>
     <h1>{{{ucf}}} List</h1>
+    <Link href="/{{{name}}}/create">
+      <a className="btn btn-primary">Create</a>
+    </Link>
     <table className="table table-responsive table-striped table-hover">
       <thead>
         <tr>
@@ -20,8 +24,14 @@ export const List: FunctionComponent<Props> = ({ {{{name}}} }) => (
         </tr>
       </thead>
       <tbody>
-        { {{{name}}} && {{{name}}}.length && {{{name}}}.map({{{lc}}} => (
-          <ListItem key={ {{{lc}}}['@id'] } {{{lc}}}={ {{{lc}}} } />
+        { {{{name}}} && ({{{name}}}.length !== 0) && {{{name}}}.map( ( {{{lc}}} ) => (
+          <tr key={ {{{lc}}}['@id'] }>
+            <th scope="row"><ReferenceLinks items={ {{{lc}}}['@id'] } type="{{{lc}}}" /></th>
+            {{#each fields}}
+              <td>{{#if reference}}<ReferenceLinks items={ {{{../lc}}}['{{{name}}}'] } type="{{{reference.title}}}" />{{else}}{ {{{../lc}}}['{{{name}}}'] }{{/if}}</td>
+            {{/each}}
+            <td><ReferenceLinks items={ {{{lc}}}['@id'] } type="{{{lc}}}" useIcon={true} /></td>
+          </tr>
         ))}
       </tbody>
     </table>

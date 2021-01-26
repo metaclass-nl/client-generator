@@ -13,5 +13,6 @@ export default {
   "{{{lc}}}.delete.confirm": "Are you sure you want to delete this {{{title}}}?",
   "{{{lc}}}.created": "{label} created.",
   "{{{lc}}}.updated": "{label} updated.",
+  "{{{lc}}}.deleted": "{label} deleted.",
   "{{{lc}}}.mercure_deleted": "{label} has been deleted by another user."
 }

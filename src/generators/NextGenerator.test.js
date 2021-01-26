@@ -5,7 +5,7 @@ import NextGenerator from "./NextGenerator";
 
 const generator = new NextGenerator({
   hydraPrefix: "hydra:",
-  templateDirectory: `${__dirname}/../../templates`
+  templateDirectory: `${__dirname}/../../templates`,
 });
 
 afterEach(() => {
@@ -22,42 +22,44 @@ describe("generate", () => {
         range: "http://www.w3.org/2001/XMLSchema#string",
         reference: null,
         required: true,
-        description: "An URL"
-      })
+        description: "An URL",
+      }),
     ];
     const resource = new Resource("abc", "http://example.com/foos", {
       id: "abc",
       title: "abc",
       readableFields: fields,
-      writableFields: fields
+      writableFields: fields,
     });
     const api = new Api("http://example.com", {
       entrypoint: "http://example.com:8080",
       title: "My API",
-      resources: [resource]
+      resources: [resource],
     });
     generator.generate(api, resource, tmpobj.name);
 
     [
       "/config/entrypoint.ts",
       "/components/abc/List.tsx",
-      "/components/abc/ListItem.tsx",
       "/components/abc/Show.tsx",
+      "/components/abc/Form.tsx",
       "/components/common/ReferenceLinks.tsx",
       "/error/SubmissionError.ts",
-      "/interfaces/Abc.ts",
-      "/interfaces/Collection.ts",
-      "/pages/abcs/[id].tsx",
+      "/types/Abc.ts",
+      "/types/Collection.ts",
+      "/pages/abcs/[id]/index.tsx",
+      "/pages/abcs/[id]/edit.tsx",
       "/pages/abcs/index.tsx",
-      "/utils/dataAccess.ts"
-    ].forEach(file => expect(fs.existsSync(tmpobj.name + file)).toBe(true));
+      "/pages/abcs/create.tsx",
+      "/utils/dataAccess.ts",
+    ].forEach((file) => expect(fs.existsSync(tmpobj.name + file)).toBe(true));
 
     [
       "/components/abc/List.tsx",
-      "/components/abc/ListItem.tsx",
       "/components/abc/Show.tsx",
-      "/interfaces/Abc.ts"
-    ].forEach(file => {
+      "/components/abc/Form.tsx",
+      "/types/Abc.ts",
+    ].forEach((file) => {
       expect(fs.existsSync(tmpobj.name + file)).toBe(true);
       expect(fs.readFileSync(tmpobj.name + file, "utf8")).toMatch(/bar/);
     });

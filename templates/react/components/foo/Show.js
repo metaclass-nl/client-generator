@@ -23,23 +23,28 @@ class Show extends Component {
     listQuery: PropTypes.string
   };
 
+  deleting = false;
+
   componentDidMount() {
     this.props.retrieve(decodeURIComponent(this.props.match.params.id));
   }
 
   componentWillUnmount() {
+    this.deleting = false;
     this.props.reset(this.props.eventSource);
   }
 
   del = () => {
     const {intl} = this.props;
-    if (window.confirm(intl.formatMessage({id:"{{{lc}}}.delete.confirm", defaultMessage:"Are you sure you want to delete this item?"})))
+    if (window.confirm(intl.formatMessage({id:"{{{lc}}}.delete.confirm", defaultMessage:"Are you sure you want to delete this item?"}))) {
+      this.deleting = true;
       this.props.del(this.props.retrieved);
+    }
   };
 
   render() {
     const listUri = "../" + (this.props.listQuery ? this.props.listQuery : "");
-    if (this.props.deleted) return <Redirect to={listUri} />;
+    if (this.deleting && this.props.deleted) return <Redirect to={listUri} />;
 
     const item = this.props.retrieved;
 
@@ -79,10 +84,10 @@ class Show extends Component {
                 <th scope="row"><FormattedMessage id="{{{../lc}}}.{{{name}}}" defaultMessage="{{{name}}}"/></th>
                 <td>{{#if reference}}<EntityLinks type="{{{reference.name}}}" items={item['{{{name}}}']} labelProp="{{{../labelField}}}" up={true} />{{else}}
                     {{#compare range "==" "http://www.w3.org/2001/XMLSchema#date" }}
-                    <defined.FormattedDate value={item['{{{name}}}']} />
+                    <defined.FormattedLocalDate value={item['{{{name}}}']} />
                     {{/compare}}
                     {{#compare range "==" "http://www.w3.org/2001/XMLSchema#time" }}
-                    <defined.FormattedTime value={item['{{{name}}}']} />
+                    <defined.FormattedLocalTime value={item['{{{name}}}']} />
                     {{/compare}}
                     {{#compare range "==" "http://www.w3.org/2001/XMLSchema#dateTime" }}
                     <defined.FormattedDateTime value={item['{{{name}}}']} />

@@ -37,7 +37,7 @@ class List extends Component {
   list(values, apiQuery) {
     this.values = values;
     this.props.query(this.props.location.search);
-    this.props.list("/{{{name}}}?" + apiQuery);
+    this.props.list("{{{name}}}?" + apiQuery);
   }
 
   /**
@@ -68,7 +68,7 @@ class List extends Component {
         )}
         {this.props.deletedItem && (
           <div className="alert alert-success">
-            <FormattedMessage id="{{{lc}}}.deleted" defaultMessage="{label} deleted" values={ {label: this.props.deletedItem['@id']} }/>
+            <FormattedMessage id="{{{lc}}}.deleted" defaultMessage="{label} deleted" values={ {label: this.props.deletedItem['{{{labelField}}}']} }/>
           </div>
         )}
         {this.props.error && (
@@ -113,10 +113,10 @@ class List extends Component {
 {{#each fields}}
                   <td>{{#if reference}}<EntityLinks type="{{{reference.name}}}" items={item['{{{name}}}']} labelProp="{{{../labelField}}}" />{{else}}
                   {{#compare range "==" "http://www.w3.org/2001/XMLSchema#date" }}
-                  <defined.FormattedDate value={item['{{{name}}}']} />
+                  <defined.FormattedLocalDate value={item['{{{name}}}']} />
                   {{/compare}}
                   {{#compare range "==" "http://www.w3.org/2001/XMLSchema#time" }}
-                  <defined.FormattedTime value={item['{{{name}}}']} />
+                  <defined.FormattedLocalTime value={item['{{{name}}}']} />
                   {{/compare}}
                   {{#compare range "==" "http://www.w3.org/2001/XMLSchema#dateTime" }}
                   <defined.FormattedDateTime value={item['{{{name}}}']} />
@@ -167,9 +167,9 @@ const mapStateToProps = state => {
     retrieved,
     loading,
     error,
-    eventSource,
-    deletedItem
+    eventSource
   } = state.{{{lc}}}.list;
+  const deletedItem = state.{{{lc}}}.del.deleted;
   return { retrieved, loading, error, eventSource, deletedItem };
 };
 

@@ -30,7 +30,10 @@ class ListTool extends Component {
   }
 
   apiRequest() {
-    const {pageParameterName="page", orderParameterName="order"} = this.props;
+    const {
+      pageParameterName = "page",
+      orderParameterName = "order"
+    } = this.props;
     const req = {};
     req[pageParameterName] = this.values.page;
     req[orderParameterName] = this.values.order;
@@ -40,7 +43,20 @@ class ListTool extends Component {
 
   render() {
     return null;
+
   }
+  // ------------ AbstractSeachTool methods inlined ----------
+
+  /** @return string part of the iri after the last slash */
+  static idFromIri(iri) {
+    if (!iri) return undefined;
+
+    const i = iri.lastIndexOf("/");
+    if (i === -1) return undefined;
+
+    return iri.substring(i + 1);
+  }
+
 }
 
 export default ListTool;
