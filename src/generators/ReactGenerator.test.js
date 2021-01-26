@@ -54,6 +54,18 @@ test("Generate a React app", () => {
     "/reducers/abc/list.js",
     "/reducers/abc/show.js",
     "/reducers/abc/update.js",
+
+    "/utils/inputLocalization.js",
+    "/utils/intlProvider.js",
+    "/components/common/EntityLinks.js",
+    "/components/common/intlDefined.js",
+    "/components/common/Pagination.js",
+    "/components/common/ReduxFormRow.js",
+    "/components/common/SelectEntity.js",
+
+    "/messages/abc-en.js",
+    "/messages/common-en.js",
+    "/messages/all.js",
   ].forEach((file) => expect(fs.existsSync(tmpobj.name + file)).toBe(true));
 
   [
